@@ -50,6 +50,9 @@ COPY --chown=nextjs:nodejs package.json bun.lock ./
 COPY --chown=nextjs:nodejs drizzle.config.ts ./
 COPY --chown=nextjs:nodejs drizzle ./drizzle
 
+# Seed
+COPY --chown=nextjs:nodejs seed.ts ./
+
 # Web application
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
