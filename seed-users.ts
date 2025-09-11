@@ -1,6 +1,6 @@
 import { db } from "@/server/db";
 import { account, user } from "@/server/db/schema";
-import bcrypt from "bcryptjs"; // install: bun add bcryptjs OR npm install bcryptjs
+import bcrypt from "bcryptjs";
 import { randomUUID } from "crypto";
 
 async function seed() {
@@ -9,13 +9,46 @@ async function seed() {
   // Maybe hardcoded id to prevent double seed?
 
   // hash the password with bcrypt
-  const plainPassword = "supersecret123";
+  const plainPassword = "secret";
   const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
+  const users = [
+    {
+      id: 1,
+      name: "One time",
+      email: "onetime@example.com",
+    },
+    {
+      id: 2,
+      name: "One time with Addon",
+      email: "onetimewithaddon@example.com",
+    },
+    {
+      id: 3,
+      name: "Two time",
+      email: "twotime@example.com",
+    },
+    {
+      id: 4,
+      name: "Two time with Addon",
+      email: "twotimewithaddon@example.com",
+    },
+    {
+      id: 5,
+      name: "Unlimited",
+      email: "unlimited@example.com",
+    },
+    {
+      id: 6,
+      name: "Unlimited with addon",
+      email: "unlimitedwithaddon@example.com",
+    },
+  ];
 
   // create the user
   await db.insert(user).values({
     id: userId,
-    name: "Alice",
+    name: "One time",
     email: "alice@example.com",
     emailVerified: true,
     createdAt: new Date(),
