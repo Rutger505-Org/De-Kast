@@ -73,7 +73,7 @@ resource "kubernetes_deployment" "app" {
           command = [
             "sh",
             "-c",
-            "cd /app && bun db:migrate"
+            "cd /app && bun db:migrate && bun db:migrate"
           ]
           
           volume_mount {
