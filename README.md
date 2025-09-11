@@ -24,6 +24,8 @@ Seed the database with:
 bun db:seed
 ```
 
+> To see as which user you can sign in check the `seed.ts` file.
+
 Then start the development server:
 
 ```bash
