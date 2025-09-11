@@ -1,13 +1,7 @@
 import { auth } from "@/server/auth";
-import { db } from "@/server/db";
-import { account, user } from "@/server/db/schema";
-import { randomUUID } from "crypto";
 
 async function seed() {
-  const plainPassword = "secret";
-
-  const authHelpers = await auth.$context;
-  const hashedPassword = await authHelpers.password.hash(plainPassword);
+  const plainPassword = "password";
 
   await Promise.all(
     [
@@ -24,12 +18,12 @@ async function seed() {
       {
         id: "3",
         name: "Two time",
-        email: "twotime@example.com",
+        email: "twotimes@example.com",
       },
       {
         id: "4",
         name: "Two time with Addon",
-        email: "twotimewithaddon@example.com",
+        email: "twotimeswithaddon@example.com",
       },
       {
         id: "5",
@@ -42,21 +36,11 @@ async function seed() {
         email: "unlimitedwithaddon@example.com",
       },
     ].map(async (u) => {
-      await db.insert(user).values({
-        ...u,
-        emailVerified: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-
-      await db.insert(account).values({
-        id: randomUUID(),
-        accountId: `${u.email}-local`,
-        providerId: "credentials",
-        userId: u.id,
-        password: hashedPassword,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+      await auth.api.signUpEmail({
+        body: {
+          ...u,
+          password: plainPassword,
+        },
       });
 
       console.log(
@@ -73,6 +57,5 @@ seed()
   })
   .catch((e) => {
     console.error("❌ Seeding failed:", e);
-    console.log("Was the database already seeded?");
     process.exit(1);
   });
