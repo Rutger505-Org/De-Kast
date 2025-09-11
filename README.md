@@ -12,10 +12,16 @@ Copy the [.env.example](.env.example) file to a new file `.env` and fill in the 
 cp .env.example .env
 ```
 
-Run the database migration command:
+Run the database migrations:
 
 ```bash
 bun db:migrate
+```
+
+Seed the database with:
+
+```bash
+bun db:seed
 ```
 
 Then start the development server:
