@@ -12,12 +12,11 @@ export default function SignUpPage() {
 
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
+  const [test, setTest] = useState("X");
 
   function validate() {
     router.push("/dashboard");
-    console.log(date);
-    console.log(time);
-    console.log("test succesvol");
+    setTest("Succes");
   }
 
   return (
@@ -55,6 +54,7 @@ export default function SignUpPage() {
           </a>
           <p>{time}</p>
           <span>{date}</span>
+          <p>{test}</p>
         </CardContent>
       </Card>
     </div>
