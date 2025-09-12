@@ -1,7 +1,7 @@
-import { auth } from "@/server/auth";
-import { db } from "@/server/db";
-import { user } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
+import { auth } from "./src/server/auth";
+import { db } from "./src/server/db";
+import { user } from "./src/server/db/schema";
 
 const plainPassword = "password";
 
