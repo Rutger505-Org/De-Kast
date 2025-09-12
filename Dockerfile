@@ -52,6 +52,7 @@ COPY --chown=nextjs:nodejs drizzle ./drizzle
 
 # Seed
 COPY --chown=nextjs:nodejs seed.ts ./
+COPY --chown=nextjs:nodejs src ./src
 
 # Web application
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
