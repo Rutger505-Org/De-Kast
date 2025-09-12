@@ -1,8 +1,8 @@
+import { SignOutButton } from "@/app/_components/sign-out-button";
 import { auth } from "@/server/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { type ReactNode } from "react";
-import { SignOutButton } from "@/app/_components/sign-out-button";
 
 export default async function RootLayout({
   children,
