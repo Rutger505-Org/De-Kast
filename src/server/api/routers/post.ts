@@ -1,38 +1,32 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
-import { post } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 
 // Leaving this as example... This is unused.
 export const postRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.db.query.post.findMany({
-      orderBy: (post, { desc }) => [desc(post.createdAt)],
-    });
+  getAll: publicProcedure.query(async ({}) => {
+    // const posts = await ctx.db.query.post.findMany({
+    //   orderBy: (post, { desc }) => [desc(post.createdAt)],
+    // });
 
-    return posts ?? null;
+    return null;
   }),
 
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
-      await ctx.db.insert(post).values({
-        name: input.name,
-        createdById: ctx.session.user.id,
-      });
+    .mutation(async ({}) => {
+      // await ctx.db.insert(post).values({
+      //   name: input.name,
+      //   createdById: ctx.session.user.id,
+      // });
     }),
 
   update: protectedProcedure
     .input(z.object({ id: z.number(), newName: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .update(post)
-        .set({ name: input.newName })
-        .where(eq(post.id, input.id));
+    .mutation(async ({}) => {
+      // await ctx.db
+      //   .update(post)
+      //   .set({ name: input.newName })
+      //   .where(eq(post.id, input.id));
     }),
 });
