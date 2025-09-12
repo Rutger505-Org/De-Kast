@@ -15,21 +15,22 @@ export default function SignUpPage() {
         <CardContent>
           <form className="space-y-4">
             <div>
-              <Label htmlFor="name">Name</Label>
-              <Input required />
+              <Label>Kies een tijd</Label>
+              <Input type="time" required />
             </div>
             <div>
-              <Label htmlFor="email">Email</Label>
-              <Input required />
+              <Label>Kies een datum</Label>
+              <Input type="date" required />
             </div>
-
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <Input required />
-            </div>
-
-            <Button type="submit" className="w-full"></Button>
+            <a href="/dashboard">
+              <Button type="submit" className="w-full">
+                Maak afspraak
+              </Button>
+            </a>
           </form>
+          <a href="/dashboard">
+            <Button>Annuleer</Button>
+          </a>
         </CardContent>
       </Card>
     </div>
