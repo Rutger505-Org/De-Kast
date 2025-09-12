@@ -12,7 +12,7 @@ export function SignOutButton() {
         signOut({
           fetchOptions: {
             onSuccess: () => {
-              router.push("/sign-in");
+              router.push("/");
             },
           },
         })
