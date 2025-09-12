@@ -45,6 +45,11 @@ RUN addgroup --system --gid 1001 nodejs \
 
 RUN chown -R nextjs:nodejs /app
 
+
+# Source
+COPY --chown=nextjs:nodejs tsconfig.json ./
+COPY --chown=nextjs:nodejs src ./src
+
 # Migrations
 COPY --chown=nextjs:nodejs package.json bun.lock ./
 COPY --chown=nextjs:nodejs drizzle.config.ts ./
@@ -52,7 +57,6 @@ COPY --chown=nextjs:nodejs drizzle ./drizzle
 
 # Seed
 COPY --chown=nextjs:nodejs seed.ts ./
-COPY --chown=nextjs:nodejs src ./src
 
 # Web application
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
