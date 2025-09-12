@@ -18,10 +18,7 @@ export default async function Home() {
     <div className="flex min-h-screen flex-col items-center justify-center">
       <main className={"flex flex-col items-center justify-center gap-10"}>
         <div className={"flex flex-col items-center space-y-2.5"}>
-          <h1 className="text-4xl font-bold">Cursus toevoegen</h1>
-          <h2 className={"max-w-md text-center text-3xl font-bold"}>
-            {session?.user.name}
-          </h2>
+          <h1 className="text-4xl font-bold">Inschrijven Cursus</h1>
         </div>
         {cursusses.map((cursus) => {
           return (
