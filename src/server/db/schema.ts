@@ -36,9 +36,9 @@ export const user = sqliteTable("user", {
     .notNull(),
   image: text("image"),
 
-  subscriptionId: text("subscription_id")
-    .notNull()
-    .references(() => subscription.id, { onDelete: "restrict" }),
+  subscriptionId: text("subscription_id").references(() => subscription.id, {
+    onDelete: "restrict",
+  }),
 
   createdAt: integer("created_at", { mode: "timestamp" })
     .$defaultFn(() => new Date())
