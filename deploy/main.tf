@@ -67,21 +67,21 @@ resource "kubernetes_deployment" "app" {
       spec {
         automount_service_account_token = false
 
-        # init_container {
-        #   name = "${var.application_name}-migrate-and-seed-db"
-        #   image = var.image
-        #   command = [
-        #     "sh",
-        #     "-c",
-        #     "cd /app && bun db:migrate && bun db:migrate"
-        #   ]
-        #
-        #   volume_mount {
-        #     name       = "sqlite-data"
-        #     mount_path = "/app/data/"
-        #     read_only  = false
-        #   }
-        # }
+        init_container {
+          name = "${var.application_name}-migrate-and-seed-db"
+          image = var.image
+          command = [
+            "sh",
+            "-c",
+            "cd /app && bun db:migrate && bun db:migrate"
+          ]
+
+          volume_mount {
+            name       = "sqlite-data"
+            mount_path = "/app/data/"
+            read_only  = false
+          }
+        }
         
         
         container {
