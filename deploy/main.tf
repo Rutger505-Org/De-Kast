@@ -68,18 +68,30 @@ resource "kubernetes_deployment" "app" {
         automount_service_account_token = false
 
         init_container {
-          name = "${var.application_name}-migrate-db"
+          name = "${var.application_name}-migrate-and-seed-db"
           image = var.image
           command = [
             "sh",
             "-c",
-            "cd /app && bun db:migrate"
+            "cd /app && bun db:migrate && bun db:seed"
           ]
-          
+
           volume_mount {
             name       = "sqlite-data"
             mount_path = "/app/data/"
             read_only  = false
+          }
+
+          env_from {
+            config_map_ref {
+              name = kubernetes_config_map.app.metadata[0].name
+            }
+          }
+
+          env_from {
+            secret_ref {
+              name = kubernetes_secret.app.metadata[0].name
+            }
           }
         }
         

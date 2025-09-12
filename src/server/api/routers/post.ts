@@ -8,6 +8,7 @@ import {
 import { post } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 
+// Leaving this as example... This is unused.
 export const postRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.db.query.post.findMany({

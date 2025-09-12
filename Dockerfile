@@ -38,17 +38,25 @@ FROM base AS production
 
 ENV NODE_ENV=production
 
-RUN bun install drizzle-kit@0.31.1 drizzle-orm@0.43.1 @libsql/client@0.14.0
+RUN bun install drizzle-kit@0.31.1 drizzle-orm@0.43.1 @libsql/client@0.14.0 better-auth @t3-oss/env-nextjs  zod
 
 RUN addgroup --system --gid 1001 nodejs \
     && adduser --system --uid 1001 nextjs
 
 RUN chown -R nextjs:nodejs /app
 
+
+# Source
+COPY --chown=nextjs:nodejs tsconfig.json ./
+COPY --chown=nextjs:nodejs src ./src
+
 # Migrations
 COPY --chown=nextjs:nodejs package.json bun.lock ./
 COPY --chown=nextjs:nodejs drizzle.config.ts ./
 COPY --chown=nextjs:nodejs drizzle ./drizzle
+
+# Seed
+COPY --chown=nextjs:nodejs seed.ts ./
 
 # Web application
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
