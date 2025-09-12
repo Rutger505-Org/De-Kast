@@ -14,6 +14,7 @@ import {
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 
+// Leaving this as example... This is unused.
 export const post = sqliteTable(
   "post",
   {
