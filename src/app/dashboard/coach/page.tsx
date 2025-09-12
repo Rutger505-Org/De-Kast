@@ -4,8 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUpPage() {
+  const router = useRouter();
+
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+
+  function validate() {
+    router.push("/dashboard");
+    console.log(date);
+    console.log(time);
+    console.log("test succesvol");
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-md">
@@ -13,24 +27,34 @@ export default function SignUpPage() {
           <CardTitle>Maak een afspraak met een personal trainer</CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form onSubmit={validate} className="space-y-4">
             <div>
-              <Label>Kies een tijd</Label>
-              <Input type="time" required />
+              <Label htmlFor="time">Kies een tijd</Label>
+              <Input
+                type="time"
+                value={time}
+                required
+                onChange={(e) => setTime(e.target.value)}
+              />
             </div>
             <div>
-              <Label>Kies een datum</Label>
-              <Input type="date" required />
+              <Label htmlFor="date">Kies een datum</Label>
+              <Input
+                type="date"
+                value={date}
+                required
+                onChange={(e) => setDate(e.target.value)}
+              />
             </div>
-            <a href="/dashboard">
-              <Button type="submit" className="w-full">
-                Maak afspraak
-              </Button>
-            </a>
+            <Button type="submit" className="w-full">
+              Maak afspraak
+            </Button>
           </form>
           <a href="/dashboard">
             <Button>Annuleer</Button>
           </a>
+          <p>{time}</p>
+          <span>{date}</span>
         </CardContent>
       </Card>
     </div>
