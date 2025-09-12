@@ -1,13 +1,7 @@
-import { auth } from "@/server/auth";
-import { headers } from "next/headers";
 import Link from "next/link";
 import Cursus from "../../_components/cursus";
 
 export default async function Home() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
   const cursusses = [
     { name: "Yoga", datum: "23-4-25", duur: "14.00 - 15.00" },
     { name: "Pilates", datum: "12-6-25", duur: "13.00 - 14.00" },
