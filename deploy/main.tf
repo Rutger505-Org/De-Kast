@@ -81,6 +81,18 @@ resource "kubernetes_deployment" "app" {
             mount_path = "/app/data/"
             read_only  = false
           }
+
+          env_from {
+            config_map_ref {
+              name = kubernetes_config_map.app.metadata[0].name
+            }
+          }
+
+          env_from {
+            secret_ref {
+              name = kubernetes_secret.app.metadata[0].name
+            }
+          }
         }
         
         
