@@ -68,7 +68,7 @@ resource "kubernetes_deployment" "app" {
         automount_service_account_token = false
 
         init_container {
-          name = "${var.application_name}-migrate-db"
+          name = "${var.application_name}-migrate-and-seed-db"
           image = var.image
           command = [
             "sh",
