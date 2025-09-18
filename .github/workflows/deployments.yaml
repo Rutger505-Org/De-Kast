@@ -106,6 +106,7 @@ jobs:
                 unfilteredVars: JSON.parse(process.env.VARS),
                 vars: {
                   AUTH_URL: "https://${{ needs.configure.outputs.hostname }}/api/auth",
+                  BETTER_AUTH_URL: "https://${{ needs.configure.outputs.hostname }}", 
                 },
 
                 unfilteredSecrets: JSON.parse(process.env.SECRETS),
