@@ -12,7 +12,7 @@ export default async function RootLayout({
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  if (!session?.user.subscriptionId) {
+  if (!session?.user) {
     redirect("/");
   }
   return (
