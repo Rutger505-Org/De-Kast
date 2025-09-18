@@ -1,23 +1,28 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { NegativeButton } from "@/components/ui/kastbuttonnegative";
+import { PositiveButton } from "@/components/ui/kastbuttonpositive";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function SignUpPage() {
+export default function CoachPage() {
   const router = useRouter();
 
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
-  const [test, setTest] = useState("X");
 
-  function validate() {
-    router.push("/dashboard");
-    setTest("Succes");
+  function validate(e: React.FormEvent) {
+    e.preventDefault();
+    const params = new URLSearchParams({ time, date }).toString();
+    router.push(`/dashboard/coach/succes?${params}`);
   }
+
+  const handleRouting = () => {
+    router.push(`/dashboard`);
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -45,16 +50,9 @@ export default function SignUpPage() {
                 onChange={(e) => setDate(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full">
-              Maak afspraak
-            </Button>
+            <PositiveButton type="submit">Maak afspraak</PositiveButton>
+            <NegativeButton onClick={handleRouting}>Annuleer</NegativeButton>
           </form>
-          <a href="/dashboard">
-            <Button>Annuleer</Button>
-          </a>
-          <p>{time}</p>
-          <span>{date}</span>
-          <p>{test}</p>
         </CardContent>
       </Card>
     </div>
