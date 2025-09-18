@@ -1,40 +1,31 @@
-import { sql } from "drizzle-orm";
-import {
-  index,
-  int,
-  integer,
-  sqliteTable,
-  text,
-} from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
+export const subscription = sqliteTable("subscription", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  sessionsPerWeek: integer("sessions_per_week").notNull(),
+  coursesAccess: integer("courses_access", { mode: "boolean" })
+    .default(false)
+    .notNull(),
+});
 
-// Leaving this as example... This is unused.
-export const post = sqliteTable(
-  "post",
-  {
-    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-    name: text("name", { length: 256 }).notNull(),
-    createdById: text("created_by", { length: 255 })
-      .notNull()
-      .references(() => user.id),
-    createdAt: int("created_at", { mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-    updatedAt: int("updatedAt", { mode: "timestamp" }).$onUpdate(
-      () => new Date(),
-    ),
-  },
-  (example) => ({
-    createdByIdIdx: index("created_by_idx").on(example.createdById),
-    nameIndex: index("name_idx").on(example.name),
-  }),
-);
+export const courses = sqliteTable("courses", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  weekDay: integer("week_day").notNull(), // e.g., 1 = Monday, 7 = Sunday
+  timeStart: text("time_start").notNull(), // store as string HH:MM
+  timeEnd: text("time_end").notNull(),
+});
+
+export const checkIn = sqliteTable("checkin", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  timeStamp: integer("time_stamp", { mode: "timestamp" })
+    .$defaultFn(() => new Date())
+    .notNull(),
+});
 
 export const user = sqliteTable("user", {
   id: text("id").primaryKey(),
@@ -44,6 +35,11 @@ export const user = sqliteTable("user", {
     .default(false)
     .notNull(),
   image: text("image"),
+
+  subscriptionId: text("subscription_id").references(() => subscription.id, {
+    onDelete: "restrict",
+  }),
+
   createdAt: integer("created_at", { mode: "timestamp" })
     .$defaultFn(() => new Date())
     .notNull(),

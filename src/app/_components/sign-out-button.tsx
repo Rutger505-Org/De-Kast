@@ -1,13 +1,14 @@
 "use client";
 
 import { signOut } from "@/client/auth";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export function SignOutButton() {
   const router = useRouter();
 
   return (
-    <button
+    <Button
       onClick={() =>
         signOut({
           fetchOptions: {
@@ -18,7 +19,7 @@ export function SignOutButton() {
         })
       }
     >
-      Sign Out
-    </button>
+      Uitloggen
+    </Button>
   );
 }
